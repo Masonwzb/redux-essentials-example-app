@@ -118,8 +118,8 @@ section h1 {
   border-radius: 7px;
 }
 
-.posts-list .post-excerpt + .post-excerpt {
-  margin-top: 0.5rem;
+.posts-list .post-excerpt {
+  margin-bottom: 1rem;
 }
 
 .posts-container.disabled {
