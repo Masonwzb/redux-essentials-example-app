@@ -1,19 +1,19 @@
-import { rest, setupWorker } from 'msw'
-import { factory, oneOf, manyOf, primaryKey } from '@mswjs/data'
-import { nanoid } from '@reduxjs/toolkit'
+import {rest, setupWorker} from 'msw'
+import {factory, oneOf, manyOf, primaryKey} from '@mswjs/data'
+import {nanoid} from '@reduxjs/toolkit'
 import faker from 'faker'
 import seedrandom from 'seedrandom'
-import { Server as MockSocketServer } from 'mock-socket'
-import { setRandom } from 'txtgen'
+import {Server as MockSocketServer} from 'mock-socket'
+import {setRandom} from 'txtgen'
 
-import { parseISO } from 'date-fns'
+import {parseISO} from 'date-fns'
 
 const NUM_USERS = 3
 const POSTS_PER_USER = 3
 const RECENT_NOTIFICATIONS_DAYS = 7
 
 // Add an extra delay to all endpoints, so loading spinners show up.
-const ARTIFICIAL_DELAY_MS = 2000
+const ARTIFICIAL_DELAY_MS = 3000
 
 /* RNG setup */
 
@@ -147,7 +147,7 @@ export const handlers = [
 
     data.date = new Date().toISOString()
 
-    const user = db.user.findFirst({ where: { id: { equals: data.user } } })
+    const user = db.user.findFirst({where: {id: {equals: data.user}}})
     data.user = user
     data.reactions = db.reaction.create()
 
@@ -156,14 +156,14 @@ export const handlers = [
   }),
   rest.get('/fakeApi/posts/:postId', function (req, res, ctx) {
     const post = db.post.findFirst({
-      where: { id: { equals: req.params.postId } },
+      where: {id: {equals: req.params.postId}},
     })
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(serializePost(post)))
   }),
   rest.patch('/fakeApi/posts/:postId', (req, res, ctx) => {
-    const { id, ...data } = req.body
+    const {id, ...data} = req.body
     const updatedPost = db.post.update({
-      where: { id: { equals: req.params.postId } },
+      where: {id: {equals: req.params.postId}},
       data,
     })
     return res(
@@ -174,11 +174,11 @@ export const handlers = [
 
   rest.get('/fakeApi/posts/:postId/comments', (req, res, ctx) => {
     const post = db.post.findFirst({
-      where: { id: { equals: req.params.postId } },
+      where: {id: {equals: req.params.postId}},
     })
     return res(
       ctx.delay(ARTIFICIAL_DELAY_MS),
-      ctx.json({ comments: post.comments })
+      ctx.json({comments: post.comments})
     )
   }),
 
@@ -186,11 +186,11 @@ export const handlers = [
     const postId = req.params.postId
     const reaction = req.body.reaction
     const post = db.post.findFirst({
-      where: { id: { equals: postId } },
+      where: {id: {equals: postId}},
     })
 
     const updatedPost = db.post.update({
-      where: { id: { equals: postId } },
+      where: {id: {equals: postId}},
       data: {
         reactions: {
           ...post.reactions,
@@ -240,7 +240,7 @@ const sendRandomNotifications = (socket, since) => {
 
   const notifications = generateRandomNotifications(since, numNotifications, db)
 
-  sendMessage(socket, { type: 'notifications', payload: notifications })
+  sendMessage(socket, {type: 'notifications', payload: notifications})
 }
 
 export const forceGenerateNotifications = (since) => {
