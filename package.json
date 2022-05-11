@@ -44,7 +44,10 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.0.2"
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "prettier": "^2.0.2",
+    "react-test-renderer": "17.0.2"
   },
   "msw": {
     "workerDirectory": "public"
