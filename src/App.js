@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 import {Navbar} from './app/Navbar'
 
@@ -18,29 +13,27 @@ import {NotificationsList} from './features/notifications/NotificationsList'
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Navbar />
       <div className="App">
-        <Switch>
+        <Routes>
           <Route
-            exact
             path="/"
-            render={() => (
+            element={
               <React.Fragment>
                 <AddPostForm />
                 <PostList />
               </React.Fragment>
-            )}
+            }
           />
-          <Route exact path="/posts/:postId" component={SinglePostPage} />
-          <Route exact path="/editPost/:postId" component={EditPostForm} />
-          <Route exact path="/users" component={UserList} />
-          <Route exact path="/users/:userId" component={UserPage} />
-          <Route exact path="/notifications" component={NotificationsList} />
-          <Redirect to="/" />
-        </Switch>
+          <Route path="/posts/:postId" element={<SinglePostPage />} />
+          <Route path="/editPost/:postId" element={<EditPostForm />} />
+          <Route path="/users" element={<UserList />} />
+          <Route path="/users/:userId" element={<UserPage />} />
+          <Route path="/notifications" element={<NotificationsList />} />
+        </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   )
 }
 

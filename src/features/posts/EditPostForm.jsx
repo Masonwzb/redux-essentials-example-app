@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 import {postUpdated} from './PostsSlice'
 
@@ -15,7 +15,7 @@ export const EditPostForm = ({match}) => {
   const [content, setContent] = useState(post.content)
 
   const dispatch = useDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const onTitleChanged = (e) => setTitle(e.target.value)
   const onContentChanged = (e) => setContent(e.target.value)
@@ -23,7 +23,7 @@ export const EditPostForm = ({match}) => {
   const onSavePostClicked = () => {
     if (title && content) {
       dispatch(postUpdated({id: postId, title, content}))
-      history.push(`/posts/${postId}`)
+      navigate(`/posts/${postId}`)
     }
   }
 
