@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 
 import {Navbar} from './app/Navbar'
 
@@ -31,6 +31,7 @@ function App() {
           <Route path="/users" element={<UserList />} />
           <Route path="/users/:userId" element={<UserPage />} />
           <Route path="/notifications" element={<NotificationsList />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </BrowserRouter>
